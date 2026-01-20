@@ -1,8 +1,15 @@
 import { FlaskConical, Atom, BrainCircuit, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { EXPERIMENTS } from '@/constants';
+import { supabase } from '@/lib/supabase';
 
-export default function InnovationLabPage() {
+export const revalidate = 0;
+
+export default async function InnovationLabPage() {
+    const { data: experiments } = await supabase
+        .from('experiments')
+        .select('*')
+        .order('created_at', { ascending: false });
+
     return (
         <div className="min-h-screen pt-32 pb-20 relative overflow-hidden bg-white">
             {/* Background Effect */}
@@ -27,15 +34,15 @@ export default function InnovationLabPage() {
 
                 {/* Active Experiments Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-                    {EXPERIMENTS.map((exp, index) => {
+                    {experiments?.map((exp, index) => {
                         const isBlue = index % 2 === 0;
                         const accentColor = isBlue ? 'blue' : 'orange';
                         const Icon = isBlue ? BrainCircuit : Atom;
 
                         return (
                             <Link
-                                href={exp.link}
-                                key={exp.slug}
+                                href={`/innovation-lab/${exp.slug}`}
+                                key={exp.id}
                                 className={`p-8 rounded-3xl bg-slate-50 border border-slate-200 relative overflow-hidden group hover:border-${accentColor}-500/30 transition-colors shadow-sm block`}
                             >
                                 <div className={`absolute top-0 right-0 p-32 bg-${accentColor}-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-${accentColor}-200/50 transition-all`} />

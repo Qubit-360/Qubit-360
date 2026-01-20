@@ -1,8 +1,15 @@
-import { SERVICES } from '@/constants';
 import { Bot, Code, FlaskConical, ArrowRight, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
 
-export default function ServicesPage() {
+export const revalidate = 0;
+
+export default async function ServicesPage() {
+    const { data: services } = await supabase
+        .from('services')
+        .select('*')
+        .order('created_at', { ascending: true });
+
     const icons = {
         'Bot': Bot,
         'Code': Code,
@@ -22,7 +29,7 @@ export default function ServicesPage() {
                 </div>
 
                 <div className="space-y-24">
-                    {SERVICES.map((service, index) => {
+                    {services?.map((service, index) => {
                         const Icon = icons[service.icon as keyof typeof icons] || Code;
                         const isEven = index % 2 === 0;
 

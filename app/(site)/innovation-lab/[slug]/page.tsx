@@ -1,16 +1,18 @@
-import { EXPERIMENTS } from '@/constants';
 import { ArrowLeft, FlaskConical, Atom } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
-export function generateStaticParams() {
-    return EXPERIMENTS.map((exp) => ({
-        slug: exp.slug,
-    }));
-}
+export const revalidate = 0;
 
-export default function ExperimentDetailsPage({ params }: { params: { slug: string } }) {
-    const experiment = EXPERIMENTS.find((e) => e.slug === params.slug);
+export default async function ExperimentDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+
+    const { data: experiment } = await supabase
+        .from('experiments')
+        .select('*')
+        .eq('slug', slug)
+        .single();
 
     if (!experiment) {
         notFound();
@@ -38,7 +40,7 @@ export default function ExperimentDetailsPage({ params }: { params: { slug: stri
                     </div>
                     <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight">{experiment.title}</h1>
                     <p className="text-xl text-slate-600 leading-relaxed max-w-2xl">
-                        {experiment.fullDescription || experiment.description}
+                        {experiment.full_description || experiment.description}
                     </p>
                 </div>
 
@@ -80,7 +82,7 @@ export default function ExperimentDetailsPage({ params }: { params: { slug: stri
                         <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200 sticky top-32">
                             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Tech Stack</h3>
                             <div className="space-y-3">
-                                {experiment.techStack?.map((tech) => (
+                                {experiment.tech_stack?.map((tech: string) => (
                                     <div key={tech} className="flex items-center gap-2 text-slate-600 text-sm border-b border-slate-100 pb-2 last:border-0 last:pb-0">
                                         <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                                         {tech}
@@ -89,7 +91,7 @@ export default function ExperimentDetailsPage({ params }: { params: { slug: stri
                             </div>
 
                             <div className="mt-8 pt-6 border-t border-slate-200">
-                                <Link href="/contact" className="block w-full text-center px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 font-semibold text-sm hover:border-blue-500 hover:text-blue-600 transition-colors">
+                                <Link href={experiment.link || "/contact"} className="block w-full text-center px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 font-semibold text-sm hover:border-blue-500 hover:text-blue-600 transition-colors">
                                     Request Access
                                 </Link>
                             </div>

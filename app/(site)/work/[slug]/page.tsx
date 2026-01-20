@@ -1,16 +1,18 @@
-import { PROJECTS } from '@/constants';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
-export function generateStaticParams() {
-    return PROJECTS.map((project) => ({
-        slug: project.slug,
-    }));
-}
+export const revalidate = 0;
 
-export default function ProjectDetailsPage({ params }: { params: { slug: string } }) {
-    const project = PROJECTS.find((p) => p.slug === params.slug);
+export default async function ProjectDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+
+    const { data: project } = await supabase
+        .from('works')
+        .select('*')
+        .eq('slug', slug)
+        .single();
 
     if (!project) {
         notFound();
@@ -32,14 +34,21 @@ export default function ProjectDetailsPage({ params }: { params: { slug: string 
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">{project.title}</h1>
                     <p className="text-xl text-slate-600 leading-relaxed">
-                        {project.fullDescription || project.description}
+                        {project.full_description || project.description}
                     </p>
                 </div>
 
                 {/* Image Placeholder */}
                 <div className="w-full aspect-video bg-slate-100 rounded-2xl border border-slate-200 mb-16 flex items-center justify-center text-slate-400">
                     {/* Actual Image would go here */}
-                    <span className="font-mono text-sm">[ Project Screenshot / Demo Video ]</span>
+                    {project.image_url ? (
+                        <div className="text-center">
+                            <span className="font-mono text-xs block mb-2">{project.image_url}</span>
+                            <span className="font-mono text-sm">[ Project Screenshot ]</span>
+                        </div>
+                    ) : (
+                        <span className="font-mono text-sm">[ Project Screenshot / Demo Video ]</span>
+                    )}
                 </div>
 
                 {/* Challenge & Solution Grid */}
@@ -62,8 +71,8 @@ export default function ProjectDetailsPage({ params }: { params: { slug: string 
                 <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200 mb-16">
                     <h3 className="text-lg font-bold text-slate-900 mb-6">Technologies Used</h3>
                     <div className="flex flex-wrap gap-3">
-                        {project.techStack ? (
-                            project.techStack.map((tech) => (
+                        {project.tech_stack ? (
+                            project.tech_stack.map((tech: string) => (
                                 <span key={tech} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">
                                     {tech}
                                 </span>

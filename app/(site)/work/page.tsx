@@ -1,7 +1,14 @@
-import { PROJECTS } from '@/constants';
 import ProjectCard from '@/components/shared/ProjectCard';
+import { supabase } from '@/lib/supabase';
 
-export default function WorkPage() {
+export const revalidate = 0; // Ensure fresh data on every request
+
+export default async function WorkPage() {
+    const { data: works } = await supabase
+        .from('works')
+        .select('*')
+        .order('created_at', { ascending: false });
+
     return (
         <div className="min-h-screen pt-32 pb-20 bg-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -15,14 +22,14 @@ export default function WorkPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {PROJECTS.map((project) => (
+                    {works?.map((project) => (
                         <ProjectCard
-                            key={project.title}
+                            key={project.id}
                             title={project.title}
                             description={project.description}
                             tag={project.tag}
-                            image={project.image}
-                            link={project.link}
+                            image={project.image_url || '/placeholder.jpg'}
+                            link={`/work/${project.slug}`}
                         />
                     ))}
                 </div>
