@@ -99,3 +99,35 @@ create policy "Authenticated users can update experiments."
 create policy "Authenticated users can delete experiments."
   on experiments for delete
   using ( auth.role() = 'authenticated' );
+
+-- STORAGE BUCKET SETUP
+-- Create the 'works' bucket for project images
+insert into storage.buckets (id, name, public)
+values ('works', 'works', true)
+on conflict (id) do nothing;
+
+-- Storage Policies for 'works' bucket
+
+-- 1. Public Read Access
+create policy "Public images are viewable by everyone."
+  on storage.objects for select
+  using ( bucket_id = 'works' );
+
+-- 2. Authenticated Upload Access
+create policy "Authenticated users can upload images."
+  on storage.objects for insert
+  with check ( bucket_id = 'works' and auth.role() = 'authenticated' );
+
+-- 3. Authenticated Update Access
+create policy "Authenticated users can update images."
+  on storage.objects for update
+  using ( bucket_id = 'works' and auth.role() = 'authenticated' );
+
+-- 4. Authenticated Delete Access
+create policy "Authenticated users can delete images."
+  on storage.objects for delete
+  using ( bucket_id = 'works' and auth.role() = 'authenticated' );
+
+-- BLOG / EXPERIMENTS UPDATES
+-- Add image support
+alter table experiments add column if not exists image_url text;

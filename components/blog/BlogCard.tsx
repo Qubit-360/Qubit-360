@@ -2,36 +2,34 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-interface ProjectCardProps {
+interface BlogCardProps {
     title: string;
     description: string;
     tag: string;
-    image: string; // Keeping image prop for future use, using div placeholder for now
+    image: string;
     link: string;
     className?: string;
 }
 
-export default function ProjectCard({
+export default function BlogCard({
     title,
     description,
     tag,
     image,
     link,
     className
-}: ProjectCardProps) {
+}: BlogCardProps) {
     return (
         <div className={cn(
             "group relative overflow-hidden rounded-2xl bg-white border border-slate-200 transition-all duration-300 hover:border-orange-500/50 hover:shadow-xl",
             className
         )}>
             {/* Image Container */}
-            {/* Image Container */}
             <div className="relative h-64 w-full overflow-hidden bg-slate-100">
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent z-10 opacity-60" />
 
                 {image && image !== '/placeholder.jpg' ? (
                     <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-500">
-                        {/* We use specific image component or simple img tag if optimization is tricky without fixed dimensions */}
                         <img
                             src={image}
                             alt={title}
@@ -64,7 +62,7 @@ export default function ProjectCard({
                     href={link}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900 group-hover:gap-3 transition-all"
                 >
-                    View Case Study <ArrowUpRight size={16} className="text-orange-500" />
+                    Read More <ArrowUpRight size={16} className="text-orange-500" />
                 </Link>
             </div>
         </div>

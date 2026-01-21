@@ -19,8 +19,8 @@ export default function AdminLayout({
                     <Link href="/admin/work" className="block px-4 py-2 rounded-lg hover:bg-slate-100 text-slate-700 font-medium">
                         Work
                     </Link>
-                    <Link href="/admin/innovation-lab" className="block px-4 py-2 rounded-lg hover:bg-slate-100 text-slate-700 font-medium">
-                        Innovation Lab
+                    <Link href="/admin/blog" className="block px-4 py-2 rounded-lg hover:bg-slate-100 text-slate-700 font-medium">
+                        Blog
                     </Link>
                     <div className="pt-8 mt-8 border-t border-slate-200">
                         <Link href="/" className="block px-4 py-2 rounded-lg hover:bg-slate-100 text-slate-500 font-medium text-sm">

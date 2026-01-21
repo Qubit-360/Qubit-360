@@ -2,7 +2,7 @@ export const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
   { label: 'Work', href: '/work' },
-  { label: 'R&D Lab', href: '/innovation-lab' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -82,7 +82,7 @@ export const SERVICES = [
     icon: 'Code'
   },
   {
-    title: 'R&D Lab',
+    title: 'Blog',
     description: 'Pushing boundaries with Machine Learning models and Augmented Reality experiments.',
     icon: 'FlaskConical'
   }

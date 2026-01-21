@@ -47,9 +47,9 @@ export default function AdminExperimentsPage() {
     return (
         <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-between mb-8">
-                <h1 className="text-3xl font-bold text-slate-900">Manage R&D Lab</h1>
+                <h1 className="text-3xl font-bold text-slate-900">Manage Blog</h1>
                 <Link
-                    href="/admin/innovation-lab/new"
+                    href="/admin/blog/new"
                     className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                     <Plus size={18} /> Add New
@@ -60,9 +60,7 @@ export default function AdminExperimentsPage() {
                 <table className="w-full text-left border-collapse">
                     <thead>
                         <tr className="bg-slate-50 border-b border-slate-200">
-                            <th className="px-6 py-4 font-semibold text-slate-700">Experiment</th>
-                            <th className="px-6 py-4 font-semibold text-slate-700">Status</th>
-                            <th className="px-6 py-4 font-semibold text-slate-700">Progress</th>
+                            <th className="px-6 py-4 font-semibold text-slate-700">Post</th>
                             <th className="px-6 py-4 font-semibold text-slate-700">Tag</th>
                             <th className="px-6 py-4 font-semibold text-slate-700 text-right">Actions</th>
                         </tr>
@@ -82,22 +80,6 @@ export default function AdminExperimentsPage() {
                                     </div>
                                 </td>
                                 <td className="px-6 py-4">
-                                    <span className="px-2 py-1 text-xs font-semibold bg-blue-50 text-blue-600 border border-blue-100 rounded-full">
-                                        {exp.status}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                            <div
-                                                className="h-full bg-blue-500 rounded-full"
-                                                style={{ width: `${exp.progress}%` }}
-                                            />
-                                        </div>
-                                        <span className="text-xs text-slate-500">{exp.progress}%</span>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4">
                                     <span className="px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded-full">
                                         {exp.tag}
                                     </span>
@@ -105,7 +87,7 @@ export default function AdminExperimentsPage() {
                                 <td className="px-6 py-4 text-right">
                                     <div className="flex items-center justify-end gap-3">
                                         <Link
-                                            href={`/admin/innovation-lab/${exp.id}`}
+                                            href={`/admin/blog/${exp.id}`}
                                             className="text-slate-400 hover:text-blue-600 transition-colors"
                                         >
                                             <Pencil size={18} />

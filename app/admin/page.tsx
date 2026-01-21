@@ -95,8 +95,8 @@ export default function AdminPage() {
                     <p className="text-slate-500 text-sm mb-4">Manage case studies and projects.</p>
                 </div>
                 <div className="p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
-                    <h3 className="tex-lg font-semibold mb-2">Innovation Lab</h3>
-                    <p className="text-slate-500 text-sm mb-4">Manage experiments and research.</p>
+                    <h3 className="tex-lg font-semibold mb-2">Blog</h3>
+                    <p className="text-slate-500 text-sm mb-4">Manage blog posts and articles.</p>
                 </div>
             </div>
         </div>
