@@ -9,11 +9,9 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                     {/* Brand Column */}
                     <div className="space-y-4">
-                        <Link href="/" className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-blue-900 flex items-center justify-center">
-                                <span className="text-white font-bold text-lg">Q</span>
-                            </div>
-                            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-900 to-orange-500">
+                        <Link href="/" className="flex items-center gap-1">
+                            <img src="/logo.png" alt="Qubit 360 Logo" className="w-24 h-24 object-contain" />
+                            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-900 to-orange-500 leading-none pb-1">
                                 Qubit 360
                             </span>
                         </Link>
@@ -30,7 +28,7 @@ export default function Footer() {
                             <Link href="#" className="p-2 rounded-full bg-slate-200 hover:bg-orange-100 text-slate-600 hover:text-orange-600 transition-colors">
                                 <Linkedin size={18} />
                             </Link>
-                            <Link href="mailto:hello@qubit360.com" className="p-2 rounded-full bg-slate-200 hover:bg-orange-100 text-slate-600 hover:text-orange-600 transition-colors">
+                            <Link href="mailto:contact@qubit360.online" className="p-2 rounded-full bg-slate-200 hover:bg-orange-100 text-slate-600 hover:text-orange-600 transition-colors">
                                 <Mail size={18} />
                             </Link>
                         </div>

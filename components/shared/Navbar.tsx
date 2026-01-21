@@ -28,13 +28,11 @@ export default function Navbar() {
                 : "bg-transparent border-transparent"
         )}>
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                <div className="flex items-center justify-between h-20">
+                <div className="flex items-center justify-between h-24">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-blue-900 flex items-center justify-center">
-                            <span className="text-white font-bold text-lg">Q</span>
-                        </div>
-                        <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-900 to-orange-500">
+                    <Link href="/" className="flex items-center gap-1">
+                        <img src="/logo.png" alt="Qubit 360 Logo" className="w-24 h-24 object-contain" />
+                        <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-900 to-orange-500 leading-none pb-1">
                             Qubit 360
                         </span>
                     </Link>
